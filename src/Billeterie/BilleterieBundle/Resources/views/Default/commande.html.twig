@@ -1,0 +1,35 @@
+{% extends "BilleterieBundle::layout.html.twig" %}
+
+{% block title %}
+    <title>Commande</title>
+{% endblock %}
+
+{% block body %}
+    <h1>
+        Recapitulation de votre commande
+    </h1>
+    <div>
+        Le musée du louvre de Paris vous remercie pour votre achat.
+    </div>
+    Les billets sont valables pour une visite en {{ type }} le <strong>{{ date|date("d/m/Y") }}</strong>
+    <br/>
+    <br/>
+    Un mail contenant le ticket vient d'être à l'adresse <em>{{ mail }}</em>
+    <br/><br/>
+
+    {% for ticket in tickets %}
+        <div>
+            {{ ticket.nom }}
+            {{ ticket.prenom }}<br/>
+            Prix individuel : <strong>{{ ticket.prix }}</strong> €
+                <br/>
+            <br/>
+            {% if ticket.tarifReduit == true %}
+                <p><em>* N'oubliez pas de présenter votre justificatif le jour de la visite</em></p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    Le prix total des billets est de <strong>{{ total }} €</strong>
+
+{% endblock %}

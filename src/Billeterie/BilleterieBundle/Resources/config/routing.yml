@@ -1,0 +1,29 @@
+billeterie_homepage:
+    path:     /
+    defaults: { _controller: BilleterieBundle:Default:index }
+
+billeterie_information:
+    path:     /information.{_format}
+    defaults: { _controller: BilleterieBundle:Default:information, _format: html }
+    requirements:
+        _format: html
+
+billeterie_paiement:
+    path:    /paiement.{_format}
+    defaults: { _controller: BilleterieBundle:Default:paiement, _format: html }
+    requirements:
+        _format: html
+
+billeterie_commande:
+    path:    /commande.{_format}
+    defaults: { _controller: BilleterieBundle:Default:commande, _format: html }
+    requirements:
+        _format: html
+
+billeterie_error:
+    path:    /error.{_format}
+    defaults: { _controller: BilleterieBundle:Default:error, _format: html }
+    requirements:
+        _format: html
+
+

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{af, ar-ma, bootstrap, bootstrap-datetimepicker, jquery, jquery-1.12.4, jquery-3.2.1.slim, jquery-DefinitelyTyped, jquery-ui, jquery-ui-timepicker-addon, jquery-ui-timepicker-addon-i18n, jquery.timepicker, lang-all, moment, popper}" />
+  </component>
+</project>

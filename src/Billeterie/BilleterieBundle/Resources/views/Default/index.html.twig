@@ -1,0 +1,107 @@
+{% extends "BilleterieBundle::layout.html.twig" %}
+
+{% block title %}
+    <title>Accueil</title>
+{% endblock %}
+
+    {% block body %}
+        {{ parent() }}
+        <h1>Reservations</h1><br/>
+        <br/><br/>
+        <div class="well">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-default">suivant</button>
+            {{ form_end(form) }}
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="https://cdn.bootcss.com/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
+            <script src="//cdn.jsdelivr.net/bootstrap.datetimepicker/4.15.35/js/bootstrap-datetimepicker.min.js"></script>
+
+
+            <script>
+
+                $(function () {
+
+                    $("form input.date").datetimepicker({
+                        beforeShowDay: function (date) {
+
+                            var day = date.getDay();
+                            var month = date.getMonth();
+                            var currDate = date.getDate();
+
+                            if (day === 2) {
+                                return [false];
+
+                            } else if (month === 4 && currDate === 1) {
+
+                                return [false];
+
+                            } else if (month === 10 && currDate === 1) {
+
+                                return [false];
+
+                            } else if (month === 11 && currDate === 25) {
+
+                                return [false];
+
+                            } else
+                                return [true];
+                        }
+                    });
+
+                    $("#ui-datepicker-div").on("mouseleave", function () {
+                        refresh();
+                    });
+
+                });
+
+                function refresh() {
+                    location.reload();
+                }
+
+                datetimeElt = document.getElementById("billeterie_billeteriebundle_reservations_dateDeVisite").value;
+
+                date = new Date(datetimeElt);
+                heure = date.getHours();
+
+                if (heure < 14) {
+
+                    jour = document.getElementById("billeterie_billeteriebundle_reservations_type").options[1].remove(1);
+
+                } else if (heure >= 14) {
+
+                    demi = document.getElementById("billeterie_billeteriebundle_reservations_type").options[0].remove(0);
+
+                }
+            </script>
+        </div>
+        <br>
+        <br>
+        <article><em>
+                <ul>
+                    <strong>Le tarif réduit de 10€ est accordé aux personnes remplissant les conditions suivantes
+                        : </strong>
+                    <br/><br/>
+                    <li>Etudiant</li>
+                    <li>Employé(e) du musée</li>
+                    <li>Employé(e) d’un service du Ministère de la Culture</li>
+                    <li>Militaire</li>
+                    <li>Jeunes de 18 à 26 ans inclus</li>
+                    <li>Titulaires de la carte "Paris Pass Famille" et "Famille nombreuse"</li>
+                    <li>Enseignants et les documentalistes en activité des établissements scolaires français et
+                        étrangers
+                    </li>
+                    <li>Titulaires de la carte "Navigo-Améthyste-Emeraude"</li>
+                    <li>Membres de la Sauvegarde de l'art Français, de la Société de l'Histoire de l'Art Français, de la
+                        Société
+                        francaise d'archéologie et de la Société nationale des antiquaires de France
+                    </li>
+                    <br/>
+                    <strong>Un justificatif sera demandé lors de la présentation du ticket (Carte d'identité, permis de
+                        conduire ou autre)</strong>
+                </ul>
+            </em></article>
+        <br/><br/>
+    {% endblock %}

@@ -1,0 +1,340 @@
+<?php
+
+namespace Billeterie\BilleterieBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="Billeterie\BilleterieBundle\Repository\UserRepository")
+ */
+class User
+
+{
+    /**
+     * @ORM\OneToMany(targetEntity="Billeterie\BilleterieBundle\Entity\Tickets", mappedBy="user")
+     */
+    private $tickets;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays", type="string", length=100)
+     *
+     * *
+     * @Assert\NotBlank(message="le pays est obligatoire")
+     */
+    private $pays;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mail", type="string", length=255)
+     *
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
+     */
+    private $mail;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Billeterie\BilleterieBundle\Entity\Visitor", cascade={"persist"})
+     * @ORM\JoinTable(name="user_visitor")
+     */
+    private $visiteurs;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->visiteurs   = new ArrayCollection();
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return User
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     *
+     * @return User
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     *
+     * @return User
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return string
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+
+    /**
+     * Set age
+     *
+     * @param \DateTime $age
+     *
+     * @return User
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return \DateTime
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set mail
+     *
+     * @param string $mail
+     *
+     * @return User
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * Get mail
+     *
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return User
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Add ticket
+     *
+     * @param \Billeterie\BilleterieBundle\Entity\Tickets $ticket
+     *
+     * @return User
+     */
+    public function addTicket(\Billeterie\BilleterieBundle\Entity\Tickets $ticket)
+    {
+        $this->tickets[] = $ticket;
+
+        return $this;
+    }
+
+    /**
+     * Remove ticket
+     *
+     * @param \Billeterie\BilleterieBundle\Entity\Tickets $ticket
+     */
+    public function removeTicket(\Billeterie\BilleterieBundle\Entity\Tickets $ticket)
+    {
+        $this->tickets->removeElement($ticket);
+    }
+
+    /**
+     * Get tickets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTickets()
+    {
+        return $this->tickets;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Billeterie\BilleterieBundle\Entity\User $user
+     *
+     * @return User
+     */
+    public function setUser(\Billeterie\BilleterieBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Billeterie\BilleterieBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set reservation
+     *
+     * @param \Billeterie\BilleterieBundle\Entity\Reservations $reservation
+     *
+     * @return User
+     */
+    public function setReservation(\Billeterie\BilleterieBundle\Entity\Reservations $reservation)
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Get reservation
+     *
+     * @return \Billeterie\BilleterieBundle\Entity\Reservations
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     * Add visiteur
+     *
+     * @param \Billeterie\BilleterieBundle\Entity\Visitor $visiteur
+     *
+     * @return User
+     */
+    public function addVisiteur(\Billeterie\BilleterieBundle\Entity\Visitor $visiteur)
+    {
+        $this->visiteurs[] = $visiteur;
+
+        return $this;
+    }
+
+    /**
+     * Remove visiteur
+     *
+     * @param \Billeterie\BilleterieBundle\Entity\Visitor $visiteur
+     */
+    public function removeVisiteur(\Billeterie\BilleterieBundle\Entity\Visitor $visiteur)
+    {
+        $this->visiteurs->removeElement($visiteur);
+    }
+
+    /**
+     * Get visiteurs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVisiteurs()
+    {
+        return $this->visiteurs;
+    }
+}

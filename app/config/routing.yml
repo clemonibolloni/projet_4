@@ -1,0 +1,4 @@
+billeterie:
+    resource: "@BilleterieBundle/Resources/config/routing.yml"
+    prefix:   /
+

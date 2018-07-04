@@ -1,0 +1,75 @@
+{% extends "BilleterieBundle::layout.html.twig" %}
+
+{% block title %}
+    <title>Information</title>
+{% endblock %}
+
+{% block body %}
+    <h1>Réservez un billet</h1><br/>
+    <br/><br/>
+        <div class="well">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            </div>
+            <button type="submit" class="btn btn-default">Enregistrer</button>
+
+            {{ form_end(form) }}
+            <br/>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+            {# Voici le script en question : #}
+            <script type="text/javascript">
+
+                var $container = $('div#multi_tickets_tickets');
+                // button to add a new SportParam
+                var $addVisitorLink = $('<a href="#" id="ajout_param" class="btn btn-primary btn-xs">Ajouter un visiteur</a>');
+                var $newLinkLi = $('<li></li>').append($addVisitorLink);
+
+                $(document).ready(function() {
+                    //delete button on each existing SportParam
+                    $container.find('li').each(function() {
+                        addVisitorFormDeleteLink($(this));
+                    });
+
+                    //add button
+                    $container.append($newLinkLi);
+
+                    // adding a new form when cliking Add button
+                    $addVisitorLink.on('click',function(e) {
+                        e.preventDefault(); // évite qu'un #apparaisse dans l'URL
+                        var index = $container.children().length;
+
+                        addVisitorForm($container,$newLinkLi);
+
+                        var bAffiche;
+
+                        return false;
+                    });
+
+                    // adding a new form Visitor
+                    function addVisitorForm($container, $newLinkLi) {
+
+                        var $prototype = $container.attr('data-prototype');
+
+                        var newForm = $prototype.replace(/__name__/g, $container.children().length-1);
+
+                        var $newFormLi = $('<li></li>').append(newForm);
+                        $newLinkLi.before($newFormLi);
+
+                        addVisitorFormDeleteLink($newFormLi);
+                    }
+
+                    function addVisitorFormDeleteLink($paramFormLi) {
+                        var $removeFormA = $('<a href="#" class="btn btn-danger  btn-xs">Supprimer</a><br><br>');
+                        $paramFormLi.append($removeFormA);
+                        $removeFormA.on('click', function (e) {
+                            e.preventDefault();
+                            $paramFormLi.remove();
+                        });
+                    }});
+
+            </script>
+          <br/>
+        <br/>
+        </div>
+{% endblock %}

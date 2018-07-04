@@ -1,0 +1,27 @@
+<img src="{{ absolute_url(asset('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Louvre_Museum_icon_1.svg/550px-Louvre_Museum_icon_1.svg.png')) }}">
+<br/>
+{% block body %}
+    <h1>Musée du Louvre de Paris.</h1>
+    <br/>
+    <div>
+        Le Musée du Louvre a le plaisir de vous transmettre votre ticket <strong>"{{ type }}"</strong> pour le
+        <strong>{{ date|date("d/m/Y") }}</strong>
+    </div>.
+    <br/>
+    <div>
+        Le prix total des tickets est de <strong>{{ total }}</strong> €
+    </div>
+    <br/>
+
+    {% for ticket in tickets %}
+        <div>
+            <strong>Visiteur</strong><br/>
+            Prénom : {{ ticket.prenom }}<br/>
+            Nom: {{ ticket.nom }}<br/>
+            prix: {{ ticket.prix }}€<br/><br/>
+        </div>
+    {% endfor %}
+
+    Code de la reservation : {{ code }}
+
+{% endblock %}
